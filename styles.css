@@ -1,0 +1,158 @@
+/* importing font from google font  */
+/* font name:- IBM Plex Serif */
+@import url("https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,200;8..60,400;8..60,700&display=swap");
+/* font name:- Cormorant Garamond */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap");
+/* --------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #353535;
+  font-size: 16px;
+  font-family: helvetica;
+}
+
+/* ----------------------------------------- */
+/* global formating */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button {
+  background-color: #2196f3;
+  color: white;
+  height: 40px;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: "IBM Plex Serif", sans-serif, arial;
+}
+
+/* -------------------------------------------- */
+/* all formating for the options in navbar */
+.navbar {
+  margin: 15px;
+  display: flex;
+  justify-content: end;
+}
+
+.img-button {
+  border: none;
+  background: none;
+}
+
+#user-profile {
+  display: none;
+  border-radius: 50%;
+  object-fit: cover;
+  height: 45px;
+  padding: 2.5px;
+  border: 1px solid #2196f3;
+}
+.img-button:hover {
+  cursor: pointer;
+}
+
+/* ------------------------------------------- */
+/* signIn setup container  */
+main {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.signInSetup {
+  display: none;
+  width: 400px;
+  padding: 20px;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(249, 251, 255, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+.close-signInSetUp {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
+}
+.close-button {
+  border: none;
+  background: none;
+}
+.close-button:hover {
+  cursor: pointer;
+}
+.x-mark {
+  font-size: 1rem;
+}
+
+.signInSetup form {
+  margin-bottom: 15px;
+}
+
+.login-field {
+  position: relative;
+  padding: 10px 0px;
+}
+.login-icon {
+  position: absolute;
+  top: 20px;
+}
+
+.signInSetup input {
+  border: none;
+  border-bottom: 2px solid #d1d1d4;
+  background: none;
+  padding: 10px;
+  padding-left: 24px;
+  font-weight: 700;
+  width: 100%;
+  transition: 0.2s;
+  color: black;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+hr {
+  margin-bottom: 15px;
+}
+.google-icon {
+  margin-right: 10px;
+}
+
+/* --------------------------------------------- */
+/* signOut Setup container */
+.google-signOut {
+  display: block;
+}
+.sign-out {
+  display: block;
+  width: 400px;
+  padding: 20px;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(249, 251, 255, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+.d-right {
+  display: flex;
+  justify-content: end;
+}
+#signout-user-info img {
+  border-radius: 50%;
+  border: 1px solid white;
+  margin: 10px;
+  padding: 3px;
+}
+.userTextContent {
+  font-family: "Cormorant Garamond", helvetica, sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
