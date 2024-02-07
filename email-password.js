@@ -1,5 +1,7 @@
 const form = document.querySelector(".sign-in");
-const formButton = document.getElementById("form-button");
+// const formButton = document.getElementById("form-button");
+const accountSignIn = document.getElementById("logging-in");
+const authError = document.querySelector(".error-message");
 
 // there some function like onSuthStatechange ,signOutSetup,signOut, in google-auth.js
 // there are also working in this file
@@ -25,7 +27,9 @@ import {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const emailPassSignIn = (email, password) => {
+// creating a user email account with password
+const emailPassSignUp = (email, password) => {
+  // calling firebase createUserWithEmailAndPassword function
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
@@ -34,13 +38,73 @@ const emailPassSignIn = (email, password) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode, "===", errorMessage);
+      // checking if the the account is already created and the displaying messsage for three second
+      if (errorCode === "auth/email-already-in-use") {
+        authError.style.display = "block";
+        authError.textContent =
+          "You already created account with this email and password";
+        setTimeout(() => {
+          authError.style.display = "none";
+        }, 3000);
+      }
     });
 };
 
+// signing in a user whose user email and password are created
+const emailPassSignIn = (email, password) => {
+  // calling firebase signInWithEmailAndPassword function
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // checking if the user is adding new account and displaying message for three second
+      if (errorCode === "auth/invalid-login-credentials") {
+        authError.style.display = "block";
+        authError.textContent =
+          "No account was found with this email and password";
+        setTimeout(() => {
+          authError.style.display = "none";
+        }, 3000);
+      }
+    });
+};
+
+function changingSignState() {
+  // changing id of form-signup-button to form-signin-button
+  document.getElementById("form-signup-button").id = "form-signin-button";
+  // changing textContent of form-signing-button from SignUp to LogIn
+  document.getElementById("form-signin-button").textContent = "LogIn";
+  // changing the form-sigin-button type from submit to click
+  document.getElementById("form-signin-button").type = "click";
+  // changing textContent of element with id message
+  document.getElementById("message").textContent =
+    "If you want to create a account click";
+  accountSignIn.innerHTML = "<u>SignUp</u>";
+  // changing id loging in to create-account
+  accountSignIn.id = "create-account";
+}
+
+// initiating the eventlistener to for signup
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const emailValue = document.getElementById("email").value;
   const passwordValue = document.getElementById("password").value;
-  emailPassSignIn(emailValue, passwordValue);
+  emailPassSignUp(emailValue, passwordValue);
+});
+
+// as the accountSignIn but click then it call the changingSignState function to change the textcontent and id of some element
+accountSignIn.addEventListener("click", changingSignState);
+
+// initiating the eventlistener to for signin
+form.addEventListener("click", (e) => {
+  if (e.target.id === "form-signin-button") {
+    const emailValue = document.getElementById("email").value;
+    const passwordValue = document.getElementById("password").value;
+    emailPassSignIn(emailValue, passwordValue);
+    e.preventDefault();
+  }
 });

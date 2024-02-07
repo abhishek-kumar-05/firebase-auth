@@ -92,6 +92,13 @@ main {
 .x-mark {
   font-size: 1rem;
 }
+.error-message {
+  margin: 15px 0px;
+  color: #df2c2c;
+  display: none;
+  text-align: center;
+  flex-grow: 1;
+}
 
 .signInSetup form {
   margin-bottom: 15px;
@@ -119,6 +126,20 @@ main {
   font-size: 1rem;
   margin-bottom: 15px;
 }
+
+.jc-fs-gap-font {
+  justify-content: flex-start;
+  gap: 5px;
+  font-size: 0.8rem;
+  margin-bottom: 15px;
+}
+.changing-state {
+  font-weight: 700;
+}
+.changing-state:hover {
+  cursor: pointer;
+}
+
 hr {
   margin-bottom: 15px;
 }
