@@ -2,6 +2,7 @@ const form = document.querySelector(".sign-in");
 // const formButton = document.getElementById("form-button");
 const accountSignIn = document.getElementById("logging-in");
 const authError = document.querySelector(".error-message");
+const buttonContainer = document.getElementById("change-state");
 
 // there some function like onSuthStatechange ,signOutSetup,signOut, in google-auth.js
 // there are also working in this file
@@ -57,6 +58,7 @@ const emailPassSignIn = (email, password) => {
     .then((userCredential) => {
       const user = userCredential.user;
       console.log(user);
+      enableSignUpFunction();
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -73,19 +75,51 @@ const emailPassSignIn = (email, password) => {
     });
 };
 
-function changingSignState() {
-  // changing id of form-signup-button to form-signin-button
-  document.getElementById("form-signup-button").id = "form-signin-button";
-  // changing textContent of form-signing-button from SignUp to LogIn
-  document.getElementById("form-signin-button").textContent = "LogIn";
-  // changing the form-sigin-button type from submit to click
-  document.getElementById("form-signin-button").type = "click";
+// function changingSignState() {
+//   // changing id of form-signup-button to form-signin-button
+//   document.getElementById("form-signup-button").id = "form-signin-button";
+//   // changing textContent of form-signing-button from SignUp to LogIn
+//   document.getElementById("form-signin-button").textContent = "LogIn";
+//   // changing the form-sigin-button type from submit to click
+//   document.getElementById("form-signin-button").type = "click";
+//   // changing textContent of element with id message
+//   document.getElementById("message").textContent =
+//     "If you want to create a account click";
+//   accountSignIn.innerHTML = "<u>SignUp</u>";
+//   // changing id loging in to create-account
+//   accountSignIn.id = "create-account";
+// }
+
+function enableLoginFunction() {
+  const signUpState = document.getElementById("form-signup-button");
+  if (signUpState) {
+    signUpState.remove();
+  }
+  const changeStatebutton = document.createElement("button");
+  changeStatebutton.classList.add("button");
+  changeStatebutton.id = "form-signin-button";
+  changeStatebutton.textContent = "LogIn";
+  buttonContainer.appendChild(changeStatebutton);
   // changing textContent of element with id message
   document.getElementById("message").textContent =
     "If you want to create a account click";
   accountSignIn.innerHTML = "<u>SignUp</u>";
-  // changing id loging in to create-account
-  accountSignIn.id = "create-account";
+}
+function enableSignUpFunction() {
+  const signInState = document.getElementById("form-signin-button");
+  if (signInState) {
+    signInState.remove();
+  }
+  const changeStatebutton = document.createElement("button");
+  changeStatebutton.classList.add("button");
+  changeStatebutton.id = "form-signup-button";
+  changeStatebutton.textContent = "SignUp";
+  changeStatebutton.type = "submit";
+  buttonContainer.appendChild(changeStatebutton);
+  // changing textContent of element with id message
+  document.getElementById("message").textContent =
+    "If you aready having a account click";
+  accountSignIn.innerHTML = "<u>LogIn</u>";
 }
 
 // initiating the eventlistener to for signup
@@ -94,10 +128,19 @@ form.addEventListener("submit", (e) => {
   const emailValue = document.getElementById("email").value;
   const passwordValue = document.getElementById("password").value;
   emailPassSignUp(emailValue, passwordValue);
+  form.reset();
 });
 
 // as the accountSignIn but click then it call the changingSignState function to change the textcontent and id of some element
-accountSignIn.addEventListener("click", changingSignState);
+let loginState = false;
+accountSignIn.addEventListener("click", () => {
+  loginState = !loginState;
+  if (loginState) {
+    enableLoginFunction();
+  } else {
+    enableSignUpFunction();
+  }
+});
 
 // initiating the eventlistener to for signin
 form.addEventListener("click", (e) => {
@@ -105,6 +148,7 @@ form.addEventListener("click", (e) => {
     const emailValue = document.getElementById("email").value;
     const passwordValue = document.getElementById("password").value;
     emailPassSignIn(emailValue, passwordValue);
+    form.reset();
     e.preventDefault();
   }
 });
