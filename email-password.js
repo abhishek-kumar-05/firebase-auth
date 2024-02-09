@@ -57,7 +57,6 @@ const emailPassSignIn = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user);
       enableSignUpFunction();
     })
     .catch((error) => {
@@ -82,6 +81,7 @@ function enableLoginFunction() {
   if (signUpState) {
     signUpState.remove();
   }
+  // checking if previous signin button is there
   if (!document.getElementById("form-signin-button")) {
     // creating a button element, setting new class,id,textContent and appending to parent element
     const changeStatebutton = document.createElement("button");
@@ -102,6 +102,7 @@ function enableSignUpFunction() {
   if (signInState) {
     signInState.remove();
   }
+  // checking if previous signup button is there
   if (!document.getElementById("form-signup-button")) {
     // creating a button element, setting new class,id,textContent and appending to parent element
     const changeStatebutton = document.createElement("button");
