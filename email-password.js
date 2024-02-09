@@ -82,12 +82,14 @@ function enableLoginFunction() {
   if (signUpState) {
     signUpState.remove();
   }
-  // creating a button element, setting new class,id,textContent and appending to parent element
-  const changeStatebutton = document.createElement("button");
-  changeStatebutton.classList.add("button");
-  changeStatebutton.id = "form-signin-button";
-  changeStatebutton.textContent = "LogIn";
-  buttonContainer.appendChild(changeStatebutton);
+  if (!document.getElementById("form-signin-button")) {
+    // creating a button element, setting new class,id,textContent and appending to parent element
+    const changeStatebutton = document.createElement("button");
+    changeStatebutton.classList.add("button");
+    changeStatebutton.id = "form-signin-button";
+    changeStatebutton.textContent = "LogIn";
+    buttonContainer.appendChild(changeStatebutton);
+  }
   // changing textContent of element with id message
   document.getElementById("message").textContent =
     "If you want to create a account click";
@@ -100,13 +102,15 @@ function enableSignUpFunction() {
   if (signInState) {
     signInState.remove();
   }
-  // creating a button element, setting new class,id,textContent and appending to parent element
-  const changeStatebutton = document.createElement("button");
-  changeStatebutton.classList.add("button");
-  changeStatebutton.id = "form-signup-button";
-  changeStatebutton.textContent = "SignUp";
-  changeStatebutton.type = "submit";
-  buttonContainer.appendChild(changeStatebutton);
+  if (!document.getElementById("form-signup-button")) {
+    // creating a button element, setting new class,id,textContent and appending to parent element
+    const changeStatebutton = document.createElement("button");
+    changeStatebutton.classList.add("button");
+    changeStatebutton.id = "form-signup-button";
+    changeStatebutton.textContent = "SignUp";
+    changeStatebutton.type = "submit";
+    buttonContainer.appendChild(changeStatebutton);
+  }
   // changing textContent of element with id message
   document.getElementById("message").textContent =
     "If you aready having a account click";

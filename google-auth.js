@@ -103,6 +103,9 @@ getRedirectResult(auth)
 // creating auth change function  if user is signed in
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    if (user.photoURL == null) {
+      user.photoURL = "./assets/emptyuser.jpeg";
+    }
     currUser = new userInstance(user.photoURL, user.displayName, user.email);
     login_form.style.display = login_button.style.display = "none";
     userProfile.style.display = "block";
