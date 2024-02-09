@@ -112,21 +112,26 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
+// checking is signout setup is created
+let checkSetupCreated = false;
+
 //creating google signOut functionality
 const userSignOut = () => {
   signOut(auth)
     .then(() => {
       signOutSetup.style.display = "none";
       login_button.style.display = "block";
+      // on signout setting checkSetupCreated to false so that on next when click it can open new setup
+      checkSetupCreated = false;
     })
     .catch((error) => {});
 };
 
-// checking is signout setup is created
-let checkSetupCreated = false;
-
 // creating sign out setup
 function SignOutSetUp() {
+  // removing previous signOutSetup card
+  signOutSetup.innerHTML = ``;
+  // creating new signOutSetup card
   signOutSetup.style.display = "block";
   if (!checkSetupCreated && currUser) {
     const container = document.createElement("div");
@@ -159,10 +164,26 @@ function SignOutSetUp() {
     // adding eventlistner to close button
     document.getElementById("close-signout").addEventListener("click", () => {
       signOutSetup.style.display = "none";
+      // on clicking close-button setting checkSetupCreated to false so that on next when click it can open new setup
+      checkSetupCreated = false;
     });
+  } else {
+    console.log("signSetup not working");
   }
 }
 
 // all eventlistener statement
+// signin eventlistener
 googleSignIn.addEventListener("click", userSignIn);
-userButton.addEventListener("click", SignOutSetUp);
+// signout eventlistener
+/*creating toogle button so after signoutsetup is created and the user clicked on user button again
+then the signoutsetup should close and open new setup when click again*/
+userButton.addEventListener("click", () => {
+  if (!checkSetupCreated) {
+    SignOutSetUp();
+  } else {
+    signOutSetup.style.display = "none";
+    // on closing setting checkSetupCreated to false so that on next when click it can open new setup
+    checkSetupCreated = false;
+  }
+});

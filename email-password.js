@@ -75,26 +75,14 @@ const emailPassSignIn = (email, password) => {
     });
 };
 
-// function changingSignState() {
-//   // changing id of form-signup-button to form-signin-button
-//   document.getElementById("form-signup-button").id = "form-signin-button";
-//   // changing textContent of form-signing-button from SignUp to LogIn
-//   document.getElementById("form-signin-button").textContent = "LogIn";
-//   // changing the form-sigin-button type from submit to click
-//   document.getElementById("form-signin-button").type = "click";
-//   // changing textContent of element with id message
-//   document.getElementById("message").textContent =
-//     "If you want to create a account click";
-//   accountSignIn.innerHTML = "<u>SignUp</u>";
-//   // changing id loging in to create-account
-//   accountSignIn.id = "create-account";
-// }
-
+// function creating login setup
 function enableLoginFunction() {
   const signUpState = document.getElementById("form-signup-button");
+  // removing old signup setup
   if (signUpState) {
     signUpState.remove();
   }
+  // creating a button element, setting new class,id,textContent and appending to parent element
   const changeStatebutton = document.createElement("button");
   changeStatebutton.classList.add("button");
   changeStatebutton.id = "form-signin-button";
@@ -105,11 +93,14 @@ function enableLoginFunction() {
     "If you want to create a account click";
   accountSignIn.innerHTML = "<u>SignUp</u>";
 }
+// function creating signUp setup
 function enableSignUpFunction() {
   const signInState = document.getElementById("form-signin-button");
+  // removing old login state
   if (signInState) {
     signInState.remove();
   }
+  // creating a button element, setting new class,id,textContent and appending to parent element
   const changeStatebutton = document.createElement("button");
   changeStatebutton.classList.add("button");
   changeStatebutton.id = "form-signup-button";
@@ -128,16 +119,19 @@ form.addEventListener("submit", (e) => {
   const emailValue = document.getElementById("email").value;
   const passwordValue = document.getElementById("password").value;
   emailPassSignUp(emailValue, passwordValue);
+  // resetting form after submission
   form.reset();
 });
 
-// as the accountSignIn but click then it call the changingSignState function to change the textcontent and id of some element
+// creating a toggle button to change the loginState
 let loginState = false;
 accountSignIn.addEventListener("click", () => {
   loginState = !loginState;
   if (loginState) {
+    // calling function to set login setup
     enableLoginFunction();
   } else {
+    // calling function to set signUp setup
     enableSignUpFunction();
   }
 });
@@ -148,6 +142,7 @@ form.addEventListener("click", (e) => {
     const emailValue = document.getElementById("email").value;
     const passwordValue = document.getElementById("password").value;
     emailPassSignIn(emailValue, passwordValue);
+    // reseting form after submission
     form.reset();
     e.preventDefault();
   }

@@ -171,6 +171,7 @@ hr {
   border: 1px solid white;
   margin: 10px;
   padding: 3px;
+  object-fit: cover;
 }
 .userTextContent {
   font-family: "Cormorant Garamond", helvetica, sans-serif;
