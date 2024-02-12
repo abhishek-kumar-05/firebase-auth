@@ -22,6 +22,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
 // intializing the web app
@@ -29,12 +30,16 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // creating a user email account with password
-const emailPassSignUp = (email, password) => {
+const emailPassSignUp = (name, email, password) => {
   // calling firebase createUserWithEmailAndPassword function
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user);
+      // Update user's display name
+      return updateProfile(user, {
+        displayName: name,
+        photoURL: "./assets/emptyuser.jpeg",
+      });
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -50,7 +55,6 @@ const emailPassSignUp = (email, password) => {
       }
     });
 };
-
 // signing in a user whose user email and password are created
 const emailPassSignIn = (email, password) => {
   // calling firebase signInWithEmailAndPassword function
@@ -80,6 +84,7 @@ function enableLoginFunction() {
   // removing old signup setup
   if (signUpState) {
     signUpState.remove();
+    document.getElementById("nameholder").style.display = "none";
   }
   // checking if previous signin button is there
   if (!document.getElementById("form-signin-button")) {
@@ -101,6 +106,7 @@ function enableSignUpFunction() {
   // removing old login state
   if (signInState) {
     signInState.remove();
+    document.getElementById("nameholder").style.display = "block";
   }
   // checking if previous signup button is there
   if (!document.getElementById("form-signup-button")) {
@@ -121,9 +127,10 @@ function enableSignUpFunction() {
 // initiating the eventlistener to for signup
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  const nameValue = document.getElementById("name").value;
   const emailValue = document.getElementById("email").value;
   const passwordValue = document.getElementById("password").value;
-  emailPassSignUp(emailValue, passwordValue);
+  emailPassSignUp(nameValue, emailValue, passwordValue);
   // resetting form after submission
   form.reset();
 });

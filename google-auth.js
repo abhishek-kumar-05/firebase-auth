@@ -44,6 +44,7 @@ import {
   getRedirectResult,
   onAuthStateChanged,
   signOut,
+  updateProfile,
 } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js";
 
 // intializing the web app
@@ -106,7 +107,9 @@ onAuthStateChanged(auth, (user) => {
     if (user.photoURL == null) {
       user.photoURL = "./assets/emptyuser.jpeg";
     }
-    currUser = new userInstance(user.photoURL, user.displayName, user.email);
+    setTimeout(() => {
+      currUser = new userInstance(user.photoURL, user.displayName, user.email);
+    }, 1000);
     login_form.style.display = login_button.style.display = "none";
     userProfile.style.display = "block";
     userProfile.src = user.photoURL;
@@ -130,12 +133,20 @@ const userSignOut = () => {
     .catch((error) => {});
 };
 
+async function setCurrUserPhoto() {
+  if (currUser.photoURL == null) {
+    currUser.photoURL = "./assets/emptyuser.jpeg";
+  } else {
+    return;
+  }
+}
 // creating sign out setup
 function SignOutSetUp() {
   // removing previous signOutSetup card
   signOutSetup.innerHTML = ``;
   // creating new signOutSetup card
   signOutSetup.style.display = "block";
+  setCurrUserPhoto();
   if (!checkSetupCreated && currUser) {
     const container = document.createElement("div");
     container.classList.add("sign-out");
