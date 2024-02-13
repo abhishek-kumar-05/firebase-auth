@@ -35,7 +35,7 @@ const emailPassSignUp = (name, email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      // Update user's display name
+      // Update user's display name and photo
       return updateProfile(user, {
         displayName: name,
         photoURL: "./assets/emptyuser.jpeg",
@@ -84,6 +84,7 @@ function enableLoginFunction() {
   // removing old signup setup
   if (signUpState) {
     signUpState.remove();
+    // removing name field in login state
     document.getElementById("nameholder").style.display = "none";
   }
   // checking if previous signin button is there

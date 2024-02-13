@@ -107,6 +107,7 @@ onAuthStateChanged(auth, (user) => {
     if (user.photoURL == null) {
       user.photoURL = "./assets/emptyuser.jpeg";
     }
+    // setting timer so the it load properly
     setTimeout(() => {
       currUser = new userInstance(user.photoURL, user.displayName, user.email);
     }, 1000);
@@ -132,7 +133,7 @@ const userSignOut = () => {
     })
     .catch((error) => {});
 };
-
+// function to set user profile 
 async function setCurrUserPhoto() {
   if (currUser.photoURL == null) {
     currUser.photoURL = "./assets/emptyuser.jpeg";
@@ -146,7 +147,9 @@ function SignOutSetUp() {
   signOutSetup.innerHTML = ``;
   // creating new signOutSetup card
   signOutSetup.style.display = "block";
+  // setting current user profile if its not loaded 
   setCurrUserPhoto();
+  // checking if setup already existed or not and currUser also 
   if (!checkSetupCreated && currUser) {
     const container = document.createElement("div");
     container.classList.add("sign-out");
