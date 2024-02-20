@@ -54,7 +54,32 @@ const provider = new GoogleAuthProvider();
 
 // when user hit the sign button
 const userSignIn = () => {
-  signInWithPopup(auth, provider)
+  signInWithRedirect(auth, provider);
+  getRedirectResult(auth)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access Google APIs.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+
+      // The signed-in user info.
+      const user = result.user;
+      console.log(user);
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
+};
+
+/*signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -74,32 +99,7 @@ const userSignIn = () => {
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
-    });
-};
-
-/*signInWithRedirect(auth, provider);
-getRedirectResult(auth)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access Google APIs.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-
-    // The signed-in user info.
-    const user = result.user;
-    console.log(user);
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  })
-  .catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
-  });*/
+    });*/
 
 // creating auth change function  if user is signed in
 onAuthStateChanged(auth, (user) => {
@@ -133,7 +133,7 @@ const userSignOut = () => {
     })
     .catch((error) => {});
 };
-// function to set user profile 
+// function to set user profile
 async function setCurrUserPhoto() {
   if (currUser.photoURL == null) {
     currUser.photoURL = "./assets/emptyuser.jpeg";
@@ -147,9 +147,9 @@ function SignOutSetUp() {
   signOutSetup.innerHTML = ``;
   // creating new signOutSetup card
   signOutSetup.style.display = "block";
-  // setting current user profile if its not loaded 
+  // setting current user profile if its not loaded
   setCurrUserPhoto();
-  // checking if setup already existed or not and currUser also 
+  // checking if setup already existed or not and currUser also
   if (!checkSetupCreated && currUser) {
     const container = document.createElement("div");
     container.classList.add("sign-out");
