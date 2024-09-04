@@ -1,21 +1,11 @@
+import { firebaseConfig } from "./credential.js";
+
 const form = document.querySelector(".sign-in");
 // const formButton = document.getElementById("form-button");
 const accountSignIn = document.getElementById("logging-in");
 const authError = document.querySelector(".error-message");
 const buttonContainer = document.getElementById("change-state");
 
-// there some function like onSuthStatechange ,signOutSetup,signOut, in google-auth.js
-// there are also working in this file
-// so when you use both file different then make sure to include these function
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBawX2CGp0l-1sVyh5Iuc2vWxiVMB0EY1c",
-  authDomain: "authenticate-login-form.firebaseapp.com",
-  projectId: "authenticate-login-form",
-  storageBucket: "authenticate-login-form.appspot.com",
-  messagingSenderId: "1092688882740",
-  appId: "1:1092688882740:web:e384c1cafbb0c28a24ee61",
-};
 // importing modules for google auth
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import {

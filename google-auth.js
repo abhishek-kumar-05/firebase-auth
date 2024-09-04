@@ -1,3 +1,6 @@
+import { firebaseConfig } from "./credential.js";
+
+
 const login_form = document.querySelector(".signInSetup");
 const login_button = document.getElementById("signUp");
 const googleSignIn = document.getElementById("googleSignIn");
@@ -25,15 +28,7 @@ function userInstance(photo, name, email) {
 let currUser;
 
 // firebase work started
-// firebase wep app configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBawX2CGp0l-1sVyh5Iuc2vWxiVMB0EY1c",
-  authDomain: "authenticate-login-form.firebaseapp.com",
-  projectId: "authenticate-login-form",
-  storageBucket: "authenticate-login-form.appspot.com",
-  messagingSenderId: "1092688882740",
-  appId: "1:1092688882740:web:e384c1cafbb0c28a24ee61",
-};
+
 // importing modules for google auth
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
 import {
@@ -79,27 +74,6 @@ const userSignIn = () => {
     });
 };
 
-/*signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      // The signed-in user info.
-      const user = result.user;
-
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-    });*/
 
 // creating auth change function  if user is signed in
 onAuthStateChanged(auth, (user) => {
